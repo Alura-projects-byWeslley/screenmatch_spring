@@ -1,7 +1,5 @@
 package br.com.alura.screenmatch;
 
-import java.util.function.Consumer;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,8 +17,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		String apikey = "";
 		String api = "https://www.omdbapi.com/?t=gilmore+girls&Season=1&apikey="+apikey;
 		var json = consumoAPI.obterDados(api);
-		System.out.println(json);
-		json = consumoAPI.obterDados("https://coffee.alexflipnote.dev/random.json");
+		// System.out.println(json);
+		// json = consumoAPI.obterDados("https://coffee.alexflipnote.dev/random.json");
 		System.out.println(json);
 	}
 }
