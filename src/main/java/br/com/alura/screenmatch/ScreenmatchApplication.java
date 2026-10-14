@@ -20,7 +20,7 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	public void run(String... args) throws Exception{
 		Principal principal = new Principal();
-		principal.escolheMenu();
+		principal.exibeMenu();
 		//sequencia:]
 		//Consumo de alguma api JÁ convertendo em json
 		//imprimo para checar
