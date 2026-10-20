@@ -16,5 +16,9 @@ public class ScreenmatchApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception{
 		Principal principal = new Principal();
 		principal.exibeMenu();
+<<<<<<< HEAD
+=======
+		
+>>>>>>> a9a8d04197b6bb1090404c332968e750854eb013
 	}
 }

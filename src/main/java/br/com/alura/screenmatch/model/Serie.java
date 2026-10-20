@@ -2,6 +2,7 @@ package br.com.alura.screenmatch.model;
 
 import java.util.OptionalDouble;
 
+<<<<<<< HEAD
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +14,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="series")
+=======
+import br.com.alura.screenmatch.service.traducao.ConsultaMyMemory;
+
+>>>>>>> a9a8d04197b6bb1090404c332968e750854eb013
 public class Serie {
     
     @Id
@@ -37,7 +42,7 @@ public class Serie {
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
-        this.sinopse = dadosSerie.sinopse();
+        this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse()).trim();
     }
 
     public Long getId() {

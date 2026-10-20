@@ -1,7 +1,7 @@
 package br.com.alura.screenmatch.service;
 
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ConverteDados implements IConverteDados{
     private ObjectMapper mapper = new ObjectMapper();
