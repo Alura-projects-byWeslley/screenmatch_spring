@@ -1,23 +1,15 @@
 package br.com.alura.screenmatch.model;
 
-import java.util.OptionalDouble;
+import br.com.alura.screenmatch.service.traducao.ConsultaMyMemory;
+import jakarta.persistence.*;
 
-<<<<<<< HEAD
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
 
 @Entity
 @Table(name="series")
-=======
-import br.com.alura.screenmatch.service.traducao.ConsultaMyMemory;
 
->>>>>>> a9a8d04197b6bb1090404c332968e750854eb013
 public class Serie {
     
     @Id
@@ -35,14 +27,27 @@ public class Serie {
     private String poster;
     private String sinopse;
 
+    @Transient
+    private List<Episodio> episodios = new ArrayList<>();
+
+    public Serie(){}
+
     public Serie(DadosSerie dadosSerie){
         this.titulo = dadosSerie.titulo();
         this.totalTemporadas = dadosSerie.totalTemporadas();
-        this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao())).orElse(0);
+        this.avaliacao = OptionalDouble.of(Double.parseDouble(dadosSerie.avaliacao())).orElse(0);
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
         this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse()).trim();
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
     }
 
     public Long getId() {

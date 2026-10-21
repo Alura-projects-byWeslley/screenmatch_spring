@@ -1,24 +1,34 @@
 package br.com.alura.screenmatch;
 
+import br.com.alura.screenmatch.principal.Principal;
+import br.com.alura.screenmatch.repository.SerieRepository;
+import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.alura.screenmatch.principal.Principal;
-
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
 
+	@Autowired
+	private SerieRepository repositorio;
+
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.configure()
+				.ignoreIfMissing()
+				.load();
+
+		dotenv.entries().forEach(entry ->
+				System.setProperty(entry.getKey(), entry.getValue())
+		);
+
 		SpringApplication.run(ScreenmatchApplication.class, args);
 	}
 
 	public void run(String... args) throws Exception{
-		Principal principal = new Principal();
+		Principal principal = new Principal(repositorio);
 		principal.exibeMenu();
-<<<<<<< HEAD
-=======
-		
->>>>>>> a9a8d04197b6bb1090404c332968e750854eb013
+
 	}
 }

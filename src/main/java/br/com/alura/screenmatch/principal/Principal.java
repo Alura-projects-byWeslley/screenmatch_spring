@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverteDados;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Principal {
 
@@ -28,6 +30,12 @@ public class Principal {
     private final String API_KEY = "&apikey="+ dotenv.get("IMDB_API_KEY");
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository repositorio;
+
+    public Principal(SerieRepository repositorio){
+        this.repositorio = repositorio;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -65,7 +73,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //        dadosSeries.add(dados);
+        repositorio.save(serie);
         System.out.println(dados);
     }
 
@@ -90,11 +100,7 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas(){
-        List<Serie> series = new ArrayList<>();
-        series = dadosSeries.stream()
-                .map(d ->new Serie(d))
-                .collect(Collectors.toList());
-        
+        List<Serie> series = repositorio.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
